@@ -287,6 +287,7 @@ def name_handler(message):
                     
                     new_im =im[top:bottom, left:right]
                     pil_im =Image.fromarray(new_im)
+                    nor_im1 =np.array(pil_im)
                     # bot.send_photo(message.chat.id, pil_im)
                     
                    
@@ -332,7 +333,29 @@ def name_handler(message):
                         
                         current_state_1 =False
                         for i in nam:
-                            p =compare_faces(pil_im, f"bot_folder/{i}")                        
+                            im2 =face_recognition.load_image_file(f"bot_folder/{i}")
+                            im2_location =face_recognition.face_locations(im2)
+                            if len(im2_location) >0:
+                                try:
+                                        
+                                    im2_encoding =face_recognition.face_encodings(im2)[0]
+                                    nor_im1_encoding =face_recognition.face_encodings(nor_im1)[0]
+                                    p =face_recognition.compare_faces([im2_encoding], nor_im1_encoding)
+                                    p =p[0]
+                                    
+                                    print("p: ", p)
+                                except:
+                                    p =False
+                                    
+                                    
+                            else:
+                                p =False
+                            
+                            
+                            
+                            
+                            
+                            # p =compare_faces(pil_im, f"bot_folder/{i}")                        
                             # print("p: ",p)
                             print(f"cur_names: ",cur_nams)
                             
@@ -511,10 +534,33 @@ def name_handler(message):
                         new_im =im[top:bottom, left:right]
                         pil_im =Image.fromarray(new_im)
                         
+                        nor_im1 =np.array(pil_im)
                         current_state_2 =False
                         for i in nam:
                             i =i.strip()
-                            p =compare_faces(pil_im, f"bot_folder/{i}")                        
+                            
+                            im2 =face_recognition.load_image_file(f"bot_folder/{i}")
+                            im2_location =face_recognition.face_locations(im2)
+                            if len(im2_location) >0:
+                                try:
+                                        
+                                    im2_encoding =face_recognition.face_encodings(im2)[0]
+                                    nor_im1_encoding =face_recognition.face_encodings(nor_im1)[0]
+                                    p =face_recognition.compare_faces([im2_encoding], nor_im1_encoding)
+                                    p =p[0]
+                                    
+                                    print("p: ", p)
+                                except:
+                                    p =False
+                                    
+                            else:
+                                p =False
+                            
+                            
+                            
+                            
+                            
+                            # p =compare_faces(pil_im, f"bot_folder/{i}")                        
                             
                             if p =="Error1_encoding":
                                 # bot.send_message(message.chat.id, "Error1_encoding. Weather img quality is unsatisfactfull or problem in identity module")
@@ -730,10 +776,29 @@ def main2(message):
                     new_im =cur_im[top:bottom, left:right]
                     pil_im =Image.fromarray(new_im)
                     # bot.send_photo(message.chat.id, pil_im)
-                    
+                    nor_im1 =np.array(pil_im)
                     for j in nam:
+                    
+                        im2 =face_recognition.load_image_file(f"bot_folder/{j}")
+                        im2_location =face_recognition.face_locations(im2)
+                        if len(im2_location) >0:
+                            try:
+                                    
+                                im2_encoding =face_recognition.face_encodings(im2)[0]
+                                nor_im1_encoding =face_recognition.face_encodings(nor_im1)[0]
+                                p =face_recognition.compare_faces([im2_encoding], nor_im1_encoding)
+                                p =p[0]
+                                
+                                print("p: ", p)
+                            except Exception as e:
+                                print(e)
+                        else:
+                            p =False
                         
-                        p =compare_faces(pil_im, f"bot_folder/{j}")
+                        
+                        
+                        
+                        # p =compare_faces(pil_im, f"bot_folder/{j}")
                         
                         if p =="Error1_encoding":
                             control_video ="False2"
