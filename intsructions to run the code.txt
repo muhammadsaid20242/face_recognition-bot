@@ -1,0 +1,2 @@
+1)Go through requirements.txt. And pip install all libraries
+2)run the code
