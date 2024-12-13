@@ -11,7 +11,7 @@ import numpy as np
 
 
 
-bot =telebot.TeleBot("7948796136:AAF3Wja3B1L3gPkHs2_jPjsNyjSW12Z1XpE")
+bot =telebot.TeleBot("Token_of_bot")
 user_state = {}
 count_11 = -1
 per_count = -1
